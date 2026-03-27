@@ -206,6 +206,40 @@ textarea{resize:vertical;min-height:80px;line-height:1.6}
 /* トースト */
 .toast{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:rgba(0,0,0,.8);color:#fff;padding:11px 22px;border-radius:24px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:200;white-space:nowrap}
 .toast.show{opacity:1}
+/* 印刷・PDF出力 */
+@media print{
+  #loginScreen,.header,.btn-area,.modal,.toast{display:none!important}
+  #app{display:block!important}
+  body{
+    background:#fff!important;
+    font-size:11px!important;
+    padding-bottom:0!important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .section{
+    margin:4px 6px!important;
+    box-shadow:none!important;
+    border:1px solid #ddd!important;
+    break-inside:avoid;
+  }
+  .sec-head{padding:6px 10px!important;font-size:11px!important}
+  .field{padding:6px 10px!important}
+  .chk,.photo,.test{padding:6px 10px!important;min-height:auto!important}
+  .chk label,.photo label,.test label{font-size:11px!important}
+  input[type=text],input[type=date],input[type=time],input[type=number],textarea,select{
+    padding:4px 6px!important;font-size:11px!important;
+    border:1px solid #ccc!important;background:#fff!important;
+  }
+  .wifi-wrap{padding:4px 6px 6px!important}
+  .wifi-tbl{font-size:10px!important}
+  .wifi-tbl input{width:38px!important;font-size:10px!important}
+  .pipe-tog{padding:8px 10px!important;min-height:auto!important}
+  .note{padding:6px 10px!important}
+  .warn{margin:0 10px 4px!important;padding:6px 8px!important;font-size:10px!important}
+  .rt-hint,.rt-sub,.voice-hint{padding:6px 10px!important;font-size:10px!important}
+  .pipe-s.open,.rt-s.open{display:block!important}
+}
 </style>
 </head>
 <body>
@@ -468,7 +502,7 @@ textarea{resize:vertical;min-height:80px;line-height:1.6}
   <!-- 固定ボタン -->
   <div class="btn-area">
     <button class="btn btn-line" onclick="genLine()">📋 LINE報告文を作る</button>
-    <button class="btn btn-ex" onclick="genExcel()">🤖 Claudeに渡す</button>
+    <button class="btn btn-ex" onclick="genPdf()">📄 PDFを作る</button>
   </div>
 
   <!-- モーダル -->
@@ -661,6 +695,7 @@ function copyText(){
   });
 }
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
+function genPdf(){window.print();}
 
 </script>
 </body>
